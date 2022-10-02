@@ -1,0 +1,106 @@
+
+
+|    Class xmltocsv :
+        | 
+        |    which contains methods and variables to convert a xml file to csv and store it in S3 Bucket
+        |
+        |    Methods :
+        |        
+        |       parse_xml_file : parses the xml file from the local storage, download the zip file
+        |                        with the file type "DLTINS"
+        |
+        |       unzip_xml_file : Unzips and extracts all XML Files in thr Directoty Named output
+        |
+        |       convert_xml_to_csv : Parses the XML Files for following Attributes:
+        |        
+        |                        ->FinInstrmGnlAttrbts.Id
+        |                        ->FinInstrmGnlAttrbts.FullNm
+        |                        ->FinInstrmGnlAttrbts.ClssfctnTp
+        |                        ->FinInstrmGnlAttrbts.CmmdtyDerivInd
+        |                        ->FinInstrmGnlAttrbts.NtnlCcy
+        |                        ->Issr
+        |
+        |                        and creates a csv file in the same directory as the initial XML File
+        |    
+        |       S3_Upload : Uploads the CSV Files created to the S3 Bucket on AWS Cloud
+
+
+
+|     parse_xml_file() :
+            | 
+            |     Parses the xml file from the local storage, downloads the zip file 
+            |     with the file_type "DLTINS"
+            | 
+            |     Parameters Used:
+            |             Xml_Address(string""): Contains the complete path of the initial XML File
+            |     
+            |             all_element[List[]]: Contains all the Attributes value dictionary under result tag
+            | 
+            |             Zip_File_Name(String""): Contains Name of the Downloaded Zip File
+            | 
+            |             File_Dir(String""): Contains the Directory Name of the XML File Location
+
+
+
+|   unzip_zml_file() :    
+            |
+            |    Unzips and extracts all XML Files in thr Directoty Named output
+            |
+            |    Parameters Used:
+            |            Zip_File_Name(string""): Contains Name of the Downloaded Zip File
+            |
+            |            File_Dir(string""): Contains the Directory Name of the XML File Location
+            |
+            |            unzip_xml_name(List[]): List of XML Files Name Extracted from the Zip File
+
+
+
+|   convert_xml_to_csv() :
+            |
+            |    Parses the XML Files for following Attributes:
+            |        
+            |        ->FinInstrmGnlAttrbts.Id
+            |        ->FinInstrmGnlAttrbts.FullNm
+            |        ->FinInstrmGnlAttrbts.ClssfctnTp
+            |        ->FinInstrmGnlAttrbts.CmmdtyDerivInd
+            |        ->FinInstrmGnlAttrbts.NtnlCcy
+            |        ->Issr
+            |
+            |    and creates a csv file in the same directory as the initial XML File
+            |
+            |    Parameters Used:
+            |            File_Dir(string""): Contains the Directory Name of the XML File Location
+            |
+            |            unzip_xml_name(List[]): List of XML Files Name Extracted from the Zip File
+            |
+            |            attributes(List[]): List which Contains the attributes needed to be parsed
+            |
+            |            PATH(string""): Contains the Name of directory containing Unzipped Files
+            |
+            |            attribute_dict(Dictionary{}): Contains Attribute and its value as dictionary
+            |
+            |            xml_parsed_doc(List[]): List of attribute_dict,contains all dictionaries 
+            |                                    with attribute as key and its text as value
+            |
+            |            Returns(string""): Path of the Created CSV File
+
+
+
+|   S3_Upload() :
+            |
+            |    Uploads the CSV Files created to the S3 Bucket on AWS Cloud
+            |
+            |    Parameters Used:
+            |
+            |            source_loc(String""): Complete path of the CSV File Created
+            |
+            |            bucket_name(string""): Bucket Name where the CSV File needs to be saved
+            |
+            |            destination_loc(String""): Complete path of the Location in S3 Bucket
+            |
+            |            access_key(String""): Contains the Access Key to access the AWS Service
+            |
+            |            secret key(String""): Contains the Secret Key to access the AWS Service
+            |
+            |    Returns(Boolean): True (File Uploaded) and False (File Not Uploaded)
+
